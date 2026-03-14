@@ -1,0 +1,24 @@
+USE FamilyBudgetDB;
+GO
+
+CREATE LOGIN BudgetUser WITH PASSWORD = 'Budget1234';
+GO
+
+CREATE USER ParentUser FOR LOGIN BudgetUser; 
+GO
+
+CREATE ROLE BudgetAdmin; 
+GO
+
+ALTER ROLE BudgetAdmin ADD MEMBER ParentUser; 
+GO
+
+
+GRANT SELECT, INSERT, UPDATE, DELETE, EXECUTE ON SCHEMA::Finance TO BudgetAdmin;
+GO
+
+GRANT SELECT ON SCHEMA::dbo TO BudgetAdmin;
+
+
+GRANT INSERT ON dbo.AuditLogs TO BudgetAdmin;
+GO
